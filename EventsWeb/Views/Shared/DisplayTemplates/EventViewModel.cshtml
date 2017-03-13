@@ -1,0 +1,29 @@
+﻿@model EventsWeb.Models.EventViewModel
+
+<div class="col-md-4 col-sm-6 col-xs-12">
+    <div class="event-box">
+        <h2>@Model.Title</h2>
+        <h3>@Model.Location</h3>
+        <span class="date">@Model.StartDateTime</span>
+        @if(Model.Duration!=null)
+            {
+            <span class="duration">(@Model.Duration.Value.ToString(@"hh\:mm") hours)</span>
+        }
+        @if(Model.Author!=null)
+        {
+            <div class="author">Author:@Model.Author</div>
+        }
+        @if(Model.Location!=null)
+        {
+            <div class="location">Location:@Model.Location</div>
+        }
+        <div id="events-details-@Model.ID">
+            @Ajax.ActionLink("View Details","EventDetailsById","Home",new { id=Model.ID},
+           new AjaxOptions
+           {
+               InsertionMode=InsertionMode.Replace,
+               UpdateTargetId="event-details-"+Model.ID
+           },new { @class = "btn btn-default" })
+        </div>
+    </div>
+</div>
